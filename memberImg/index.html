@@ -87,11 +87,11 @@
         const weatherElement = document.getElementById('weather');
         async function updateWeather() {
             try {
-                const response = await fetch('https://api.openweathermap.org/data/2.5/weather?q=Hanoi&units=metric&appid=YOUR_API_KEY');
+                const response = await fetch('https://api.openweathermap.org/data/2.5/weather?q=Incheon&units=metric&appid=332f0f6098b3d8053da7704a82ffc304');
                 const data = await response.json();
                 const temperature = data.main.temp;
                 const description = data.weather[0].description;
-                weatherElement.textContent = `Weather: ${description}, ${temperature}°C`;
+                weatherElement.textContent = `${description}, ${temperature}°C`;
             } catch (error) {
                 weatherElement.textContent = 'Weather: Unable to load';
             }
