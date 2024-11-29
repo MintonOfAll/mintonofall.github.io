@@ -22,7 +22,7 @@
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
-            transition: background-image 1s ease-in-out;
+            transition: background-image 10s ease-in-out;
         }
 
         #widget {
@@ -33,9 +33,9 @@
             color: white;
             padding: 20px 25px;
             border-radius: 8px;
-            font-size: 20px;
+            font-size: 30px;
             text-align: right;
-            line-height: 1.8;
+            
         }
 
         #widget p {
@@ -44,7 +44,9 @@
     </style>
 </head>
 <body>
-    <div id="photo"></div>
+    <div id="photo-container">
+        <img id="photo" src="" alt="Random Photo">
+    </div>
     <div id="widget">
         <p id="date"></p>
         <p id="time"></p>
@@ -62,8 +64,16 @@
             'https://imagedelivery.net/H_vtnjYSM5axKm4PivHM5g/c5beee32-e332-44ad-0877-c2d590b20600/public',
             'https://imagedelivery.net/H_vtnjYSM5axKm4PivHM5g/a842b120-4f72-4324-6993-f5d499979800/public',
             'https://imagedelivery.net/H_vtnjYSM5axKm4PivHM5g/025f3bd0-ce8b-4a45-0d23-8c2ab6277f00/public',
-            'https://imagedelivery.net/H_vtnjYSM5axKm4PivHM5g/9d437ef1-eb02-48b7-3255-f306a7d8dd00/public'
-        ];
+            'https://imagedelivery.net/H_vtnjYSM5axKm4PivHM5g/9d437ef1-eb02-48b7-3255-f306a7d8dd00/public',
+            'https://imagedelivery.net/H_vtnjYSM5axKm4PivHM5g/9c057534-e58b-4eb0-595b-e68643a46a00/public',
+            'https://imagedelivery.net/H_vtnjYSM5axKm4PivHM5g/48890cc4-a70d-4520-05af-b5e7e5b14900/public',
+            'https://imagedelivery.net/H_vtnjYSM5axKm4PivHM5g/9806b4f6-29fa-4f7f-0724-90b38a749600/public',
+            'https://imagedelivery.net/H_vtnjYSM5axKm4PivHM5g/ae13c0e7-2ba0-47e8-c146-d9914dfd1300/public',
+            'https://imagedelivery.net/H_vtnjYSM5axKm4PivHM5g/75b67cd1-0792-46ec-87b9-b71004660100/public',
+            'https://imagedelivery.net/H_vtnjYSM5axKm4PivHM5g/556dfc4e-3402-475a-86c2-883cb4a54700/public',
+            'https://imagedelivery.net/H_vtnjYSM5axKm4PivHM5g/030dd5aa-489a-4294-f55a-cd663b88cc00/public',
+            'https://imagedelivery.net/H_vtnjYSM5axKm4PivHM5g/07c807fd-4a00-438a-aa73-c7590d620f00/public'
+];
 
         // 2. 사진 랜덤 전환
         const photoElement = document.getElementById('photo');
@@ -73,7 +83,7 @@
             photoElement.style.opacity = 0; // 페이드아웃 효과
             setTimeout(() => {
                 photoElement.src = photos[randomIndex];
-                currentScale = currentScale === 1 ? 1.5 : 1; // 확대/축소 스케일 변경
+                currentScale = currentScale === 1 ? 1 : 1; // 확대/축소 스케일 변경
                 photoElement.style.transform = `scale(${currentScale})`; // 확대/축소 적용
                 photoElement.style.opacity = 1; // 페이드인 효과
             }, 500); // 사진이 바뀔 때 딜레이
@@ -84,7 +94,8 @@
         photoElement.addEventListener('click', changePhoto);
 
         // 3. 날짜 및 시간 업데이트
-        const datetimeElement = document.getElementById('datetime');
+        const dateElement = document.getElementById('date');
+        const timeElement = document.getElementById('time');
         function updateDateTime() {
             const now = new Date();
             const optionsDate = { month: 'long', day: 'numeric' };
@@ -94,8 +105,8 @@
             const optionsTime = { hour: '2-digit', minute: '2-digit', hour12: false };
             const formattedTime = now.toLocaleTimeString(undefined, optionsTime);
 
-            dateElement.textContent = `Date: ${formattedDate}`;
-            timeElement.textContent = `Time: ${formattedTime}`;
+            dateElement.textContent = `${formattedDate}`;
+            timeElement.textContent = `${formattedTime}`;
         }
         setInterval(updateDateTime, 1000);
         updateDateTime();
