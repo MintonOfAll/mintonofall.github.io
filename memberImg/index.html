@@ -70,7 +70,7 @@
             const randomIndex = Math.floor(Math.random() * photos.length);
             photoElement.style.backgroundImage = `url(${photos[randomIndex]})`;
         }
-        setInterval(changePhoto, 10000); // 10초마다 변경
+        setInterval(changePhoto, 60000); // 60초마다 변경
         changePhoto(); // 초기 사진 설정
 
         // 3. 날짜 및 시간 업데이트
@@ -78,7 +78,7 @@
         function updateDateTime() {
             const now = new Date();
             const formatted = now.toLocaleString();
-            datetimeElement.textContent = `Date & Time: ${formatted}`;
+            datetimeElement.textContent = `${formatted}`;
         }
         setInterval(updateDateTime, 1000);
         updateDateTime();
