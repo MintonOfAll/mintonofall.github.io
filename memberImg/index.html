@@ -72,6 +72,8 @@
         }
         setInterval(changePhoto, 60000); // 60초마다 변경
         changePhoto(); // 초기 사진 설정
+         // 3. 클릭 시 사진 변경
+        photoElement.addEventListener('click', changePhoto);
 
         // 3. 날짜 및 시간 업데이트
         const datetimeElement = document.getElementById('datetime');
