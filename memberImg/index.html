@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Photo Album</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        #photo {
+            position: absolute;
+            object-fit: contain;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            transition: background-image 1s ease-in-out;
+        }
+
+        #widget {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            text-align: right;
+        }
+
+        #widget p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="photo"></div>
+    <div id="widget">
+        <p id="datetime"></p>
+        <p id="weather"></p>
+    </div>
+
+    <script>
+        // 1. 사진 목록 (URL 배열)
+        const photos = [
+            'https://imagedelivery.net/H_vtnjYSM5axKm4PivHM5g/13f6fb5c-4bc3-4fbc-0854-c8d66cc69700/public',
+            'https://imagedelivery.net/H_vtnjYSM5axKm4PivHM5g/76735a9b-c958-4b86-fd17-115ea90cc100/public',
+            'https://imagedelivery.net/H_vtnjYSM5axKm4PivHM5g/f3834bb5-d1fc-4e64-b9cd-2ed7ab22fe00/public',
+            'https://imagedelivery.net/H_vtnjYSM5axKm4PivHM5g/5b27e01e-6b15-4979-e247-1fe9e621fa00/public',
+            'https://imagedelivery.net/H_vtnjYSM5axKm4PivHM5g/084ce6d7-6e16-4112-2a66-05d83e8e9b00/public',
+            'https://imagedelivery.net/H_vtnjYSM5axKm4PivHM5g/c5beee32-e332-44ad-0877-c2d590b20600/public',
+            'https://imagedelivery.net/H_vtnjYSM5axKm4PivHM5g/a842b120-4f72-4324-6993-f5d499979800/public',
+            'https://imagedelivery.net/H_vtnjYSM5axKm4PivHM5g/025f3bd0-ce8b-4a45-0d23-8c2ab6277f00/public',
+            'https://imagedelivery.net/H_vtnjYSM5axKm4PivHM5g/9d437ef1-eb02-48b7-3255-f306a7d8dd00/public'
+        ];
+
+        // 2. 사진 랜덤 전환
+        const photoElement = document.getElementById('photo');
+        function changePhoto() {
+            const randomIndex = Math.floor(Math.random() * photos.length);
+            photoElement.style.backgroundImage = `url(${photos[randomIndex]})`;
+        }
+        setInterval(changePhoto, 10000); // 10초마다 변경
+        changePhoto(); // 초기 사진 설정
+
+        // 3. 날짜 및 시간 업데이트
+        const datetimeElement = document.getElementById('datetime');
+        function updateDateTime() {
+            const now = new Date();
+            const formatted = now.toLocaleString();
+            datetimeElement.textContent = `Date & Time: ${formatted}`;
+        }
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+
+        // 4. 날씨 API 통합
+        const weatherElement = document.getElementById('weather');
+        async function updateWeather() {
+            try {
+                const response = await fetch('https://api.openweathermap.org/data/2.5/weather?q=Hanoi&units=metric&appid=YOUR_API_KEY');
+                const data = await response.json();
+                const temperature = data.main.temp;
+                const description = data.weather[0].description;
+                weatherElement.textContent = `Weather: ${description}, ${temperature}°C`;
+            } catch (error) {
+                weatherElement.textContent = 'Weather: Unable to load';
+            }
+        }
+        updateWeather();
+        setInterval(updateWeather, 600000); // 10분마다 업데이트
+    </script>
+</body>
+</html>
